@@ -1,5 +1,7 @@
 package com.mateus.skateshop_2_a_missao.service;
 
+import com.mateus.skateshop_2_a_missao.domain.product.Product;
+import com.mateus.skateshop_2_a_missao.dto.CreateProductDTO;
 import com.mateus.skateshop_2_a_missao.dto.ProductResponseDTO;
 import com.mateus.skateshop_2_a_missao.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +31,10 @@ public class ProductService {
         var product = productRepository.findById(id).orElseThrow();
         var oldQuantity = product.getQuantity();
         product.setQuantity(oldQuantity+quantity);
+    }
+
+    public void create(CreateProductDTO dto) {
+        Product product = new Product(dto);
+        productRepository.save(product);
     }
 }
