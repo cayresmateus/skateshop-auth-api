@@ -1,5 +1,6 @@
 package com.mateus.skateshop_2_a_missao.domain.product;
 
+import com.mateus.skateshop_2_a_missao.dto.CreateProductDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -37,7 +38,7 @@ public class Product {
     private TypeProduct typeProduct;
 
     @Setter
-    private long quantity;
+    private Long quantity;
 
     @Column(name="image_url")
     private String imageUrl;
@@ -45,5 +46,13 @@ public class Product {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-
+    public Product(CreateProductDTO dto) {
+        this.name = dto.name();
+        this.price = dto.price();
+        this.description = dto.description();
+        this.brand = dto.brand();
+        this.typeProduct = dto.typeProduct();
+        this.quantity = dto.quantity();
+        this.imageUrl = dto.imageUrl();
+    }
 }
