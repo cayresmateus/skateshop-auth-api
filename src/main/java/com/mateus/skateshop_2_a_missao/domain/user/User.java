@@ -2,6 +2,7 @@ package com.mateus.skateshop_2_a_missao.domain.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,11 +32,18 @@ public class User implements UserDetails {
     @NotBlank
     private String password;
 
-    @NotBlank @Enumerated(EnumType.STRING)
+    @NotNull
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    public User(String username, String password, UserRole role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
