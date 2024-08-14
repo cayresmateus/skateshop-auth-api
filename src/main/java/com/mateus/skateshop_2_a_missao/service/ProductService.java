@@ -7,6 +7,7 @@ import com.mateus.skateshop_2_a_missao.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Service
@@ -30,7 +31,8 @@ public class ProductService {
     public void restock(Long id, Long quantity) {
         var product = productRepository.findById(id).orElseThrow();
         var oldQuantity = product.getQuantity();
-        product.setQuantity(oldQuantity+quantity);
+        product.setQuantity(oldQuantity + quantity);
+        productRepository.save(product);
     }
 
     public void create(CreateProductDTO dto) {
