@@ -9,10 +9,11 @@ public record ProductResponseDTO(String name,
                                  BigDecimal price,
                                  String description,
                                  Brand brand,
-                                 String imageUrl
+                                 String imageUrl,
+                                 Long quantity
                                  ) {
     public ProductResponseDTO(Product p){
-        this( p.getName(), p.getPrice(), p.getDescription(), p.getBrand(), p.getImageUrl());
+        this( p.getName(), p.getPrice(), p.getDescription(), p.getBrand(), p.getImageUrl(), p.getQuantity());
 
     }
 }
