@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Entity
@@ -29,12 +30,15 @@ public class Product {
     @NotNull
     private BigDecimal price;
 
+    @NotBlank
     private String description;
 
-    @Enumerated(EnumType.STRING) @NotBlank
+    @Enumerated(EnumType.STRING)
+    @NotNull
     private Brand brand;
 
-    @NotBlank @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
+    @NotNull
     private TypeProduct typeProduct;
 
     @Setter
