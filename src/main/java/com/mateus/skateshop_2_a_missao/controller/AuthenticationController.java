@@ -6,6 +6,7 @@ import com.mateus.skateshop_2_a_missao.dto.LoginResponseDTO;
 import com.mateus.skateshop_2_a_missao.dto.RegisterDTO;
 import com.mateus.skateshop_2_a_missao.infra.security.TokenService;
 import com.mateus.skateshop_2_a_missao.repositories.UserRepository;
+import com.mateus.skateshop_2_a_missao.service.AuthorizationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserRepository repository;
+    private AuthorizationService authorizationService;
 
     @Autowired
     private TokenService tokenService;
@@ -41,11 +42,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDTO dto){
-        if(repository.findByUsername(dto.username()) != null) return ResponseEntity.badRequest().build();
-
-        String encryptedPassword = new BCryptPasswordEncoder().encode(dto.password());
-        User newUser = new User(dto.username(), encryptedPassword, dto.role());
-        repository.save(newUser);
+        this.authorizationService.registerUser(dto);
         return ResponseEntity.ok().build();
     }
 
