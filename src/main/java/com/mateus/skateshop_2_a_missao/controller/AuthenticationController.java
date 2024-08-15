@@ -23,20 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
     private AuthorizationService authorizationService;
-
-    @Autowired
-    private TokenService tokenService;
-
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthDTO dto){
-        var usernamePassword = new UsernamePasswordAuthenticationToken(dto.username(), dto.password());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
-        var token = tokenService.generateToken((User) auth.getPrincipal());
+        String token = authorizationService.loginUser(dto);
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
