@@ -1,18 +1,12 @@
 package com.mateus.skateshop_2_a_missao.controller;
 
-import com.mateus.skateshop_2_a_missao.domain.user.User;
 import com.mateus.skateshop_2_a_missao.dto.AuthDTO;
 import com.mateus.skateshop_2_a_missao.dto.LoginResponseDTO;
 import com.mateus.skateshop_2_a_missao.dto.RegisterDTO;
-import com.mateus.skateshop_2_a_missao.infra.security.TokenService;
-import com.mateus.skateshop_2_a_missao.repositories.UserRepository;
 import com.mateus.skateshop_2_a_missao.service.AuthorizationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
