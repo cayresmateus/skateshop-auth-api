@@ -7,6 +7,7 @@ import com.mateus.skateshop_2_a_missao.dto.RegisterDTO;
 import com.mateus.skateshop_2_a_missao.infra.security.TokenService;
 import com.mateus.skateshop_2_a_missao.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,6 +26,7 @@ public class AuthorizationService implements UserDetailsService {
     private TokenService tokenService;
 
     @Autowired
+    @Lazy
     private AuthenticationManager authenticationManager;
 
     @Override
