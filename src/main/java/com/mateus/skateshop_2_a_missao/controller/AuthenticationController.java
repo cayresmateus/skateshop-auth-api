@@ -26,9 +26,14 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid RegisterDTO dto){
+    public ResponseEntity<String> register(@RequestBody @Valid RegisterDTO dto){
         this.authorizationService.registerUser(dto);
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/register/adm")
+    public ResponseEntity<String> registerAdm(@RequestBody @Valid RegisterDTO dto){
+        this.authorizationService.registerAdm(dto);
+        return ResponseEntity.ok().build();
+    }
 }
