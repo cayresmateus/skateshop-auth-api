@@ -1,6 +1,7 @@
 package com.mateus.skateshop_2_a_missao.service;
 
 import com.mateus.skateshop_2_a_missao.domain.user.User;
+import com.mateus.skateshop_2_a_missao.domain.user.UserRole;
 import com.mateus.skateshop_2_a_missao.domain.user.exceptions.UserAlreadyExistsException;
 import com.mateus.skateshop_2_a_missao.dto.AuthDTO;
 import com.mateus.skateshop_2_a_missao.dto.RegisterDTO;
@@ -8,7 +9,6 @@ import com.mateus.skateshop_2_a_missao.infra.security.TokenService;
 import com.mateus.skateshop_2_a_missao.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,7 +45,16 @@ public class AuthorizationService implements UserDetailsService {
             throw new UserAlreadyExistsException("This username already exists");
         }
         String encryptedPassword = new BCryptPasswordEncoder().encode(dto.password());
-        User newUser = new User(dto.username(), encryptedPassword, dto.role());
+        User newUser = new User(dto.username(), encryptedPassword);
+        repository.save(newUser);
+    }
+
+    public void registerAdm(RegisterDTO dto){
+        if(repository.findByUsername(dto.username()) != null){
+            throw new UserAlreadyExistsException("This username already exists");
+        }
+        String encryptedPassword = new BCryptPasswordEncoder().encode(dto.password());
+        User newUser = new User(dto.username(), encryptedPassword, UserRole.ADMIN);
         repository.save(newUser);
     }
 }
